@@ -9,6 +9,10 @@ export interface PropertyDeclaration {
   attrName?: string;
 }
 
+export interface Properties {
+  [Key: string]: PropertyDeclaration;
+}
+
 interface PropertyValues {
   [key: string]: any;
 }
@@ -23,13 +27,13 @@ export class LitElement extends HTMLElement {
   private _values: PropertyValues = [];
   private _attrMap: any = {};
 
-  static get properties(): PropertyDeclaration[] {
-    return [];
+  static get properties(): Properties {
+    return {};
   }
 
   static get observedAttributes(): string[] {
-    return Object.keys(this.properties)
-      .map(key => this.properties[key].attrName)
+    return <string[]>Object.values(this.properties)
+      .map(prop => prop.attrName)
       .filter(name => name);
   }
 
